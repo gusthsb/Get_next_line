@@ -75,10 +75,13 @@ char	*update_remainder(char *remainder)
 	j = 0;
 	while (remainder && remainder[i] != '\n')
 		i++;
-	new_remainder = malloc(sizeof(char) * (ft_strlen(remainder) - (i + 2)));
-	if (!new_remainder)
-		return (NULL);
 	if (!remainder[i])
+	{
+		free(remainder);
+		return (NULL);
+	}
+	new_remainder = malloc(sizeof(char) * (ft_strlen(remainder) - i + 1));
+	if (!new_remainder)
 	{
 		free(remainder);
 		return (NULL);
@@ -87,6 +90,7 @@ char	*update_remainder(char *remainder)
 	while (remainder[i])
 		new_remainder[j++] = remainder[i++];
 	new_remainder[j] = '\0';
+	free(remainder);
 	return (new_remainder);
 }
 
