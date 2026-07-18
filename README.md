@@ -54,22 +54,22 @@ int main(void)
 
 ## Algorithm Explanation and Justification
 
-The core of the logic is built around a single `static char *remainder` variable. Because it is static, its value persists between consecutive calls to `get_next_line`, allowing us to store extra characters read from the buffer that belong to the next line.
+The core of the logic is built around a single `static char *remainder` variable. Because it is static, its value persists between consecutive calls, allowing us to store extra characters read from the buffer that belong to the next line.
 
-The algorithm is divided into three highly specialized helper functions to adhere to the 42 Norm:
+The algorithm is divided into:
 
 1. **Reading Data (`keep_read`)**: 
-   A temporary buffer is allocated to read data from the file descriptor in chunks of `BUFFER_SIZE`. Using `read()`, the function loops and appends each new chunk to the static `remainder` variable using `ft_strjoin`. The loop stops when a newline (`\n`) is found within the static variable or when `read()` returns 0 (End of File). If `read()` fails (returns -1), all memory is safely freed to prevent leaks.
+   A temporary buffer is allocated to read data from the file descriptor in chunks of `BUFFER_SIZE`. Using `read()`, the function loops and appends each new chunk to the static `remainder` variable using `ft_strjoin`. The loop stops when a newline (`\n`) is found within the static variable or when `read()` returns 0 (End of File). If `read()` fails (returns -1).
 
 2. **Extracting the Line (`extract_line`)**:
    Once reading halts, this function parses the `remainder` string. It iterates to find the length of the current line up to the `\n`. It then allocates the exact memory needed (`i + 2` to account for the `\n` and the null terminator `\0`), copies the characters, and returns the cleanly formatted line.
 
 3. **Updating the Remainder (`update_remainder`)**:
-   This is the most critical step for memory management. After the current line is extracted, the `remainder` still holds characters that belong to subsequent lines. This function calculates the size of the leftover data (`ft_strlen(remainder) - i + 1`), allocates a new string (`new_remainder`), and copies the remaining data into it. Finally, it explicitly calls `free(remainder)` on the old string to prevent memory leaks before returning the new static pointer.
+   After the current line is extracted, the `remainder` still holds characters that belong to subsequent lines. This function calculates the size of the leftover data (`ft_strlen(remainder) - i + 1`), allocates a new string (`new_remainder`), and copies the remaining data into it. Finally, it explicitly calls `free(remainder)` on the old string to prevent memory leaks before returning the new static pointer.
 
-This modular structure was chosen to guarantee that memory is constantly managed (allocated and freed) at every stage of the pipeline, preventing overlapping pointers and segmentation faults.
+This structure was chosen to guarantee that memory is constantly managed at every stage of the pipeline, preventing overlapping pointers and segmentation faults.
 
 ## Resources
 * **System calls**: `man 2 read`, `man 3 malloc`, `man 3 free`.
 * **Concept Reference**: [Understanding C Static Variables](https://en.wikipedia.org/wiki/Static_variable).
-* **AI Usage Statement**: Artificial Intelligence (LLM) was utilized as a debugging and code-review assistant during the development of this project. Specifically, the AI was used to trace complex memory execution paths to identify a missing `free()` call on the static variable, and to correct the mathematical logic for the `malloc` size calculation (`ft_strlen(remainder) - i + 1`) inside the `update_remainder` function.
+* **AI Usage Statement**: The AI was used to trace complex memory execution paths to identify a missing `free()` call on the static variable, and to correct the mathematical logic for the `malloc` size calculation (`ft_strlen(remainder) - i + 1`) inside the `update_remainder` function.
