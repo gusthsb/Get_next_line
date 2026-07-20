@@ -72,4 +72,4 @@ This structure was chosen to guarantee that memory is constantly managed at ever
 ## Resources
 * **System calls**: `man 2 read`, `man 3 malloc`, `man 3 free`.
 * **Concept Reference**: [Understanding C Static Variables](https://en.wikipedia.org/wiki/Static_variable).
-* **AI Usage Statement**: The AI was used to trace complex memory execution paths to identify a missing `free()` call on the static variable, and to correct the mathematical logic for the `malloc` size calculation (`ft_strlen(remainder) - i + 1`) inside the `update_remainder` function.
+* **AI Usage Statement**: The AI was used to trace memory execution paths to identify a missing `free()` call, and to correct the mathematical logic for the `malloc` size calculation (`ft_strlen(remainder) - i + 1`) inside the `update_remainder` function.

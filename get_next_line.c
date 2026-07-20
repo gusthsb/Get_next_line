@@ -6,7 +6,7 @@
 /*   By: gustde-s <gustde-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 17:31:36 by gustde-s          #+#    #+#             */
-/*   Updated: 2026/07/08 18:25:39 by gustde-s         ###   ########.fr       */
+/*   Updated: 2026/07/20 17:16:35 by gustde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ char	*extract_line(char *remainder)
 	i = 0;
 	if (!remainder || !remainder[i])
 		return (NULL);
-	while (remainder && remainder[i] != '\n')
+	while (remainder[i] && remainder[i] != '\n')
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (remainder && remainder[i] != '\n')
+	while (remainder[i] && remainder[i] != '\n')
 	{
 		line[i] = remainder[i];
 		i++;
@@ -73,7 +73,7 @@ char	*update_remainder(char *remainder)
 
 	i = 0;
 	j = 0;
-	while (remainder && remainder[i] != '\n')
+	while (remainder[i] && remainder[i] != '\n')
 		i++;
 	if (!remainder[i])
 	{

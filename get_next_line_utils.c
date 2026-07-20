@@ -6,7 +6,7 @@
 /*   By: gustde-s <gustde-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 17:31:39 by gustde-s          #+#    #+#             */
-/*   Updated: 2026/07/03 17:31:40 by gustde-s         ###   ########.fr       */
+/*   Updated: 2026/07/20 17:27:05 by gustde-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strchr(const char *str, int c)
 	int	i;
 
 	if (!str)
-		return (NULL);		
+		return (NULL);
 	i = 0;
 	while (str[i])
 	{
